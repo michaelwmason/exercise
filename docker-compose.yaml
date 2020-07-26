@@ -1,0 +1,24 @@
+version: "3"
+services:
+  api:
+    container_name: api
+    build:
+      context: ./api
+      dockerfile: ./api/Dockerfile
+    image: exercise-api:latest
+    ports:
+      - "8080:8080"
+  postgres:
+    container_name: db
+    image: postgres:11.3-alpine
+    volumes:
+      - postgresData:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: db
+      PGDATA: /var/lib/postgresql/data/pgdata
+volumes:
+  postgresData:
